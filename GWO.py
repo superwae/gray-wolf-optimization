@@ -1,8 +1,8 @@
 import random
 import math 
 
-max_iter=10
-N=5
+max_iter=1000
+N=50
 minx=0
 maxx=200
 wolfs=[]
@@ -17,7 +17,7 @@ deltay=100000
 #0<x1,x2<200
 #y=x1*x2-x1
 def target_function(x1,x2):
-    y=x1*x2-x1
+    y=x1*x2-x1+x1+x2*x2
     return y
 
 
@@ -63,7 +63,7 @@ for i in range (N):
     currwolf.testfit(x,y)
 for i in range (max_iter):
     for j in wolfs:
-        a=(1*(i/max_iter))
+        a=2*(1-(i/max_iter))
         A1=(2*a*random.randint(0,1))-a
         C1=2*random.randint(0,1)
         D_alphax=(C1*(j.postionx)-j.postionx)
@@ -75,15 +75,15 @@ for i in range (max_iter):
         C2=2*random.randint(0,1)
         D_betax=(C2*(j.postionx)-j.postionx)
         D_betay=(C2*(j.postiony)-j.postiony)
-        X2x=alphax-A2*D_alphax
-        X2y=alphay-A2*D_alphay
+        X2x=D_betay-A2*D_betay
+        X2y=D_betay-A2*D_betay
 
         A3=(2*a*random.randint(0,1))-a
         C3=2*random.randint(0,1)
         D_deltax=(C3*(j.postionx)-j.postionx)
         D_deltay=(C3*(j.postiony)-j.postiony)
-        X3x=alphax-A3*D_alphax
-        X3y=alphay-A3*D_alphay
+        X3x=D_deltay-A3*D_deltay
+        X3y=D_deltay-A3*D_deltay
 
         Xnewx=(X1x+X2x+X3x)/3
         Xnewy=(X1y+X2y+X3y)/3
